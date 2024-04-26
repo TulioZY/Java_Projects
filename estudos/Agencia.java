@@ -1,3 +1,5 @@
+package estudos;
+
 public class Agencia {
     private String nome;
     private int numero;

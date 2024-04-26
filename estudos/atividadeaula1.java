@@ -1,3 +1,5 @@
+package estudos;
+
 import java.util.Scanner;
 public class atividadeaula1 {
     public static void main(String args[]){
