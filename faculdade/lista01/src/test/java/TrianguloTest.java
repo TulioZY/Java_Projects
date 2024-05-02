@@ -8,16 +8,16 @@ public class TrianguloTest {
 
     @Test
     public void testCalcularAreaTrianguloEquilatero() {
-        Triangulo triangulo = new Triangulo(6.0, 6.0, 6.0, 9, 0.0); // Base e altura iguais não são necessárias para triângulos equiláteros
+        Triangulo triangulo = new Triangulo(6.0, 6.0, 6.0, 9, 0.0);
         double areaEsperada = 40.5;
         double areaObtida = triangulo.calcularArea();
 
-        assertEquals(areaEsperada, areaObtida, 0.001); // Precisão de 3 casas decimais
+        assertEquals(areaEsperada, areaObtida, 0.001);
     }
 
     @Test
     public void testCalcularAreaTrianguloIsosceles() {
-        Triangulo triangulo = new Triangulo(5.0, 8.0, 5.0, 7.0, 0.0); // Base e altura iguais não são necessárias para triângulos isósceles
+        Triangulo triangulo = new Triangulo(5.0, 8.0, 5.0, 7.0, 0.0);
         double areaEsperada = 24.5;
         double areaObtida = triangulo.calcularArea();
 
