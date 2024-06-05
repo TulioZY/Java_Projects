@@ -6,6 +6,20 @@ public class Contribuinte {
     private int tempoContribuicao; // em anos
 
     public Contribuinte(int idade, char sexo, int tempoContribuicao) {
+
+        if (sexo != 'M' && sexo != 'F') {
+            throw new IllegalArgumentException("Sexo inválido. Deve ser 'M' ou 'F'.");
+        }
+        if (idade < 0) {
+            throw new IllegalArgumentException("Idade não pode ser negativa.");
+        }
+        if (tempoContribuicao < 0) {
+            throw new IllegalArgumentException("Tempo de contribuição não pode ser negativo.");
+        }
+        if (tempoContribuicao >= idade) {
+            throw new IllegalArgumentException("Tempo de contribuição não pode ser maior ou igual à idade.");
+        }
+
         this.idade = idade;
         this.sexo = sexo;
         this.tempoContribuicao = tempoContribuicao;

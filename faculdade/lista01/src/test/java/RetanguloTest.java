@@ -61,4 +61,22 @@ public class RetanguloTest {
 
         assertEquals(novaAltura, retangulo.getAltura(), 0.0);
     }
+
+    @Test
+    public void testSetBaseInvalida() {
+        try {
+            retangulo.setBase(-10.0);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Base inválida: deve ser positiva.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testSetAlturaInvalida() {
+        try {
+            retangulo.setAltura(-1.50);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Altura inválida: deve ser positiva.", e.getMessage());
+        }
+    }
 }

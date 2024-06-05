@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,5 +33,33 @@ public class ContribuinteTest {
         boolean resultadoObtido = contribuinte.podeSeAposentar();
 
         assertEquals(resultadoEsperado, resultadoObtido);
+    }
+
+    @Test
+    public void testSexoInvalido() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Contribuinte(30, 'X', 10);
+        });
+    }
+
+    @Test
+    public void testIdadeNegativa() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Contribuinte(-5, 'M', 10);
+        });
+    }
+
+    @Test
+    public void testTempoContribuicaoNegativo() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Contribuinte(30, 'F', -10);
+        });
+    }
+
+    @Test
+    public void testTempoContribuicaoMaiorQueIdade() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Contribuinte(30, 'M', 40);
+        });
     }
 }

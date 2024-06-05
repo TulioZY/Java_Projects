@@ -23,6 +23,9 @@ public class Retangulo {
     }
 
     public void setBase(double base) {
+        if (base <= 0) {
+            throw new IllegalArgumentException("Base inválida: deve ser positiva.");
+        }
         this.base = base;
     }
 
@@ -31,6 +34,9 @@ public class Retangulo {
     }
 
     public void setAltura(double altura) {
+        if (altura <= 0) {
+            throw new IllegalArgumentException("Altura inválida: deve ser positiva.");
+        }
         this.altura = altura;
     }
 

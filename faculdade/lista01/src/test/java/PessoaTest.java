@@ -53,5 +53,23 @@ public class PessoaTest {
 
         assertEquals(novaAltura, pessoa.getAltura(), 0.0);
     }
+
+    @Test
+    public void testSetPesoInvalido() {
+        try {
+            pessoa.setPeso(-10.0);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Peso inválido: deve ser positivo.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testSetAlturaInvalida() {
+        try {
+            pessoa.setAltura(-1.50);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Altura inválida: deve ser positiva.", e.getMessage());
+        }
+    }
 }
 
