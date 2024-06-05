@@ -1,0 +1,102 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import faculdade.lista02.Lista02Exe02;
+
+
+public class Lista03Exe01 {
+
+    @Test
+    public void testLivroConstrutor() {
+        String titulo = "O Hobbit";
+        String autor = "J.R.R. Tolkien";
+        int quantidadeDisponivel = 2;
+
+        Livro livro = new Livro(titulo, autor, quantidadeDisponivel);
+
+        assertEquals(titulo, livro.getTitulo());
+        assertEquals(autor, livro.getAutor());
+        assertEquals(quantidadeDisponivel, livro.getQuantidadeDisponivel());
+    }
+
+    @Test
+    public void testLivroEmprestarDisponivel() {
+        Livro livro = new Livro("O Senhor dos Anéis", "J.R.R. Tolkien", 1);
+
+        livro.emprestar();
+
+        assertEquals(0, livro.getQuantidadeDisponivel());
+    }
+
+    @Test(expected = LivroNaoDisponivelException.class)
+    public void testLivroEmprestarIndisponivel() {
+        Livro livro = new Livro("O Hobbit", "J.R.R. Tolkien", 0);
+
+        livro.emprestar();
+    }
+
+    @Test
+    public void testBibliotecaAdicionarLivro() {
+        Biblioteca biblioteca = new Biblioteca();
+
+        biblioteca.adicionarLivro("O Senhor dos Anéis", "J.R.R. Tolkien", 2);
+
+        Livro livro = biblioteca.buscarLivro("O Senhor dos Anéis");
+
+        assertNotNull(livro);
+        assertEquals("O Senhor dos Anéis", livro.getTitulo());
+        assertEquals("J.R.R. Tolkien", livro.getAutor());
+        assertEquals(2, livro.getQuantidadeDisponivel());
+    }
+
+    @Test
+    public void testBibliotecaBuscarLivroExistente() {
+        Biblioteca biblioteca = new Biblioteca();
+
+        biblioteca.adicionarLivro("O Hobbit", "J.R.R. Tolkien", 1);
+
+        Livro livro = biblioteca.buscarLivro("O Hobbit");
+
+        assertNotNull(livro);
+        assertEquals("O Hobbit", livro.getTitulo());
+    }
+
+    @Test
+    public void testBibliotecaBuscarLivroInexistente() {
+        Biblioteca biblioteca = new Biblioteca();
+
+        biblioteca.adicionarLivro("O Senhor dos Anéis", "J.R.R. Tolkien", 2);
+
+        Livro livro = biblioteca.buscarLivro("O Hobbit");
+
+        assertNull(livro);
+    }
+
+    @Mock
+    private Livro livroMock;
+
+    @Test
+    public void testBibliotecaEmprestarLivroSucesso() throws LivroNaoEncontradoException, LivroNaoDisponivelException {
+        Biblioteca biblioteca = new Biblioteca();
+
+        biblioteca.adicionarLivro("O Senhor dos Anéis", "J.R.R. Tolkien", 2);
+
+        when(biblioteca.buscarLivro("O Senhor dos Anéis")).thenReturn(livroMock);
+        when(livroMock.getTitulo()).thenReturn("O Senhor dos Anéis");
+        when(livroMock.getQuantidadeDisponivel()).thenReturn(1);
+
+        biblioteca.emprestarLivro("O Senhor dos Anéis");
+
+        verify(livroMock).emprestar();
+    }
+
+    @Test(expected = LivroNaoEncontradoException.class)
+    public void testBibliotecaEmprestarLivroInexistente() throws LivroNaoEncontradoException, LivroNaoDisponivelException {
+        Biblioteca biblioteca = new Biblioteca();
+
+        biblioteca.adicionarLivro("O Hobbit", "J.R.R. Tolkien", 1);
+
+        biblioteca.emprestarLivro("O Senhor dos Anéis");
+    }
+}
